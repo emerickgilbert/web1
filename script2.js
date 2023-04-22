@@ -6,14 +6,13 @@ const zoom_min = 0.1;
 const zoomSpeed = 200;
 const TILE_URL_TEMPLATE = "Url(http://127.0.0.1:8081/tile_{x}_{y}.jpg)";
 const observer = new IntersectionObserver(onIntersection, {
-  rootMargin: "0px 0px 100% 0px",
+  threshold: 0,
 });
 
 async function init() {
   params = await (await fetch("http://127.0.0.1:8081/params.json")).json();
   tile_container = document.querySelector("#tile_container");
   tile_frame = document.querySelector("#tile_frame");
-
   tile_container.style.width = params.x * params.width + "px";
   tile_container.style.zoom = 1;
   tile_frame.addEventListener("wheel", zoomTile);
@@ -35,8 +34,8 @@ async function init() {
       e.preventDefault();
     }
     isDragging = true;
-    startMouseX = e.clientX || e.touches[0].clientX;
-    startMouseY = e.clientY || e.touches[0].clientY;
+    startMouseX = e.clientX;
+    startMouseY = e.clientY;
     startScrollX = tile_frame.scrollLeft;
     startScrollY = tile_frame.scrollTop;
   }
@@ -46,8 +45,8 @@ async function init() {
       return;
     }
     e.preventDefault();
-    const currentMouseX = e.clientX || e.touches[0].clientX;
-    const currentMouseY = e.clientY || e.touches[0].clientY;
+    const currentMouseX = e.clientX;
+    const currentMouseY = e.clientY;
     tile_frame.scrollLeft = startScrollX - (currentMouseX - startMouseX);
     tile_frame.scrollTop = startScrollY - (currentMouseY - startMouseY);
   }
