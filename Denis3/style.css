@@ -1,0 +1,14 @@
+/* .tile{
+    display: flex;
+}
+#tile_container{
+    display: flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+}*/
+
+canvas {
+    border: 1px solid black;
+    width: 70%;
+    height: 70%;
+}
